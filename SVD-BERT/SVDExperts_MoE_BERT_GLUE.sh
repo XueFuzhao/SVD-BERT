@@ -1,4 +1,4 @@
-LOG_DIR="log"
+LOG_DIR="/home/users/nus/e0792473/scratch/output_svd_bert/log"
 if [ ! -d "$LOG_DIR" ]; then
   mkdir $LOG_DIR
 fi

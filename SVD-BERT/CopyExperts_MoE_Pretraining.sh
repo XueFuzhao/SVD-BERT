@@ -14,7 +14,7 @@ JOB_NAME=copy_moe_pretraining_lr2e_3_32k
 OUTPUT_DIR=/home/users/nus/e0792473/scratch/output_svd_bert/bert_model_outputs
 PRETRAINED_MODEL_DIR=/home/users/nus/e0792473/scratch/BERT_base_model
 DATA_PREFIX=/home/users/nus/e0792473/scratch/BERT_pretraining_dataset/hdf5_lower_case_1_seq_len_512_max_pred_80_masked_lm_prob_0.15_random_seed_12345_dupe_factor_5/books_wiki_en_corpus/
-LOG_DIR="log"
+LOG_DIR="/home/users/nus/e0792473/scratch/output_svd_bert/log"
 
 # Size of expert parallel world (should be less than total world size)
 EP_SIZE=8
