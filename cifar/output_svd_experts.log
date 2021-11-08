@@ -1,0 +1,445 @@
+nohup: ignoring input
+[2021-10-05 21:49:08,122] [WARNING] [runner.py:122:fetch_hostfile] Unable to find hostfile, will proceed with training with local resources only.
+[2021-10-05 21:49:08,208] [INFO] [runner.py:360:main] cmd = /opt/conda/bin/python3.8 -u -m deepspeed.launcher.launch --world_info=eyJsb2NhbGhvc3QiOiBbMF19 --master_addr=127.0.0.1 --master_port=29500 cifar10_deepspeed.py --log-interval 1000 --deepspeed --deepspeed_config ds_config.json --moe --ep-world-size 1 --num-experts 4 --top-k 1 --noisy-gate-policy RSample --moe-param-group --model_path=/home/users/nus/e0792473/scratch/DeepSpeedExamples/cifar/model/moe_cnn
+[2021-10-05 21:49:09,604] [INFO] [launch.py:73:main] 0 NCCL_VERSION 2.11.4
+[2021-10-05 21:49:09,604] [INFO] [launch.py:80:main] WORLD INFO DICT: {'localhost': [0]}
+[2021-10-05 21:49:09,605] [INFO] [launch.py:86:main] nnodes=1, num_local_procs=1, node_rank=0
+[2021-10-05 21:49:09,605] [INFO] [launch.py:101:main] global_rank_mapping=defaultdict(<class 'list'>, {'localhost': [0]})
+[2021-10-05 21:49:09,605] [INFO] [launch.py:102:main] dist_world_size=1
+[2021-10-05 21:49:09,605] [INFO] [launch.py:104:main] Setting CUDA_VISIBLE_DEVICES=0
+[2021-10-05 21:49:11,111] [INFO] [distributed.py:46:init_distributed] Initializing torch distributed with backend: nccl
+Files already downloaded and verified
+Files already downloaded and verified
+ deer  ship   car   car
+[2021-10-05 21:49:18,176] [INFO] [logging.py:68:log_dist] [Rank 0] initializing deepspeed groups
+[2021-10-05 21:49:18,177] [INFO] [logging.py:68:log_dist] [Rank 0] initializing deepspeed model parallel group with size 1
+[2021-10-05 21:49:18,178] [INFO] [logging.py:68:log_dist] [Rank 0] initializing deepspeed expert parallel group with size 1
+[2021-10-05 21:49:18,178] [INFO] [logging.py:68:log_dist] [Rank 0] creating expert data parallel process group with ranks: [0]
+[2021-10-05 21:49:18,178] [INFO] [logging.py:68:log_dist] [Rank 0] creating expert parallel process group with ranks: [0]
+[2021-10-05 21:49:18,181] [INFO] [logging.py:68:log_dist] [Rank 0] num_experts: 4 | num_local_experts: 4 | expert_parallel_size: 1
+[2021-10-05 21:49:18,187] [INFO] [logging.py:68:log_dist] [Rank 0] DeepSpeed info: version=0.5.3, git-hash=unknown, git-branch=unknown
+[2021-10-05 21:49:18,769] [INFO] [engine.py:197:__init__] DeepSpeed Flops Profiler Enabled: False
+Using /home/users/nus/e0792473/.cache/torch_extensions/py38_cu114 as PyTorch extensions root...
+Detected CUDA files, patching ldflags
+Emitting ninja build file /home/users/nus/e0792473/.cache/torch_extensions/py38_cu114/fused_adam/build.ninja...
+Building extension module fused_adam...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Loading extension module fused_adam...
+Time to load fused_adam op: 0.3176908493041992 seconds
+[2021-10-05 21:49:19,794] [INFO] [engine.py:821:_configure_optimizer] Using DeepSpeed Optimizer param name adam as basic optimizer
+[2021-10-05 21:49:19,795] [INFO] [engine.py:829:_configure_optimizer] DeepSpeed Basic Optimizer = FusedAdam
+[2021-10-05 21:49:19,795] [INFO] [logging.py:68:log_dist] [Rank 0] Creating fp16 optimizer with dynamic loss scale
+[2021-10-05 21:49:19,802] [INFO] [logging.py:68:log_dist] [Rank 0] DeepSpeed Final Optimizer = adam
+[2021-10-05 21:49:19,803] [INFO] [engine.py:545:_configure_lr_scheduler] DeepSpeed using configured LR scheduler = WarmupLR
+[2021-10-05 21:49:19,803] [INFO] [logging.py:68:log_dist] [Rank 0] DeepSpeed LR Scheduler = <deepspeed.runtime.lr_schedules.WarmupLR object at 0x1547ac4d2550>
+[2021-10-05 21:49:19,803] [INFO] [logging.py:68:log_dist] [Rank 0] step=0, skipped=0, lr=[0.001, 0.001], mom=[[0.8, 0.999], [0.8, 0.999]]
+[2021-10-05 21:49:19,803] [INFO] [config.py:940:print] DeepSpeedEngine configuration:
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   activation_checkpointing_config  {
+    "partition_activations": false, 
+    "contiguous_memory_optimization": false, 
+    "cpu_checkpointing": false, 
+    "number_checkpoints": null, 
+    "synchronize_checkpoint_boundary": false, 
+    "profile": false
+}
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   aio_config ................... {'block_size': 1048576, 'queue_depth': 8, 'thread_count': 1, 'single_submit': False, 'overlap_events': True}
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   allreduce_always_fp32 ........ False
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   amp_enabled .................. False
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   amp_params ................... False
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   checkpoint_tag_validation_enabled  True
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   checkpoint_tag_validation_fail  False
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   curriculum_enabled ........... False
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   curriculum_params ............ False
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   dataloader_drop_last ......... False
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   disable_allgather ............ False
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   dump_state ................... False
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   dynamic_loss_scale_args ...... {'init_scale': 32768, 'scale_window': 500, 'delayed_shift': 2, 'min_scale': 1}
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   eigenvalue_enabled ........... False
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   eigenvalue_gas_boundary_resolution  1
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   eigenvalue_layer_name ........ bert.encoder.layer
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   eigenvalue_layer_num ......... 0
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   eigenvalue_max_iter .......... 100
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   eigenvalue_stability ......... 1e-06
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   eigenvalue_tol ............... 0.01
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   eigenvalue_verbose ........... False
+[2021-10-05 21:49:19,804] [INFO] [config.py:944:print]   elasticity_enabled ........... False
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   flops_profiler_config ........ {
+    "enabled": false, 
+    "profile_step": 1, 
+    "module_depth": -1, 
+    "top_modules": 1, 
+    "detailed": true, 
+    "output_file": null
+}
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   fp16_enabled ................. True
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   fp16_master_weights_and_gradients  False
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   fp16_mixed_quantize .......... False
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   global_rank .................. 0
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   gradient_accumulation_steps .. 1
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   gradient_clipping ............ 1.0
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   gradient_predivide_factor .... 1.0
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   initial_dynamic_scale ........ 32768
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   loss_scale ................... 0
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   memory_breakdown ............. False
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   optimizer_legacy_fusion ...... False
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   optimizer_name ............... adam
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   optimizer_params ............. {'lr': 0.001, 'betas': [0.8, 0.999], 'eps': 1e-08, 'weight_decay': 3e-07}
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   pipeline ..................... {'stages': 'auto', 'partition': 'best', 'seed_layers': False, 'activation_checkpoint_interval': 0}
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   pld_enabled .................. False
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   pld_params ................... False
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   prescale_gradients ........... False
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   quantize_change_rate ......... 0.001
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   quantize_groups .............. 1
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   quantize_offset .............. 1000
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   quantize_period .............. 1000
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   quantize_rounding ............ 0
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   quantize_start_bits .......... 16
+[2021-10-05 21:49:19,805] [INFO] [config.py:944:print]   quantize_target_bits ......... 8
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   quantize_training_enabled .... False
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   quantize_type ................ 0
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   quantize_verbose ............. False
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   scheduler_name ............... WarmupLR
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   scheduler_params ............. {'warmup_min_lr': 0, 'warmup_max_lr': 0.001, 'warmup_num_steps': 1000}
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   sparse_attention ............. None
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   sparse_gradients_enabled ..... False
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   steps_per_print .............. 2000
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   tensorboard_enabled .......... False
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   tensorboard_job_name ......... DeepSpeedJobName
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   tensorboard_output_path ...... 
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   train_batch_size ............. 16
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   train_micro_batch_size_per_gpu  16
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   use_quantizer_kernel ......... False
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   wall_clock_breakdown ......... False
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   world_size ................... 1
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   zero_allow_untested_optimizer  False
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   zero_config .................. {
+    "stage": 0, 
+    "contiguous_gradients": true, 
+    "reduce_scatter": true, 
+    "reduce_bucket_size": 5.000000e+07, 
+    "allgather_partitions": true, 
+    "allgather_bucket_size": 5.000000e+07, 
+    "overlap_comm": true, 
+    "load_from_fp32_weights": true, 
+    "elastic_checkpoint": true, 
+    "offload_param": null, 
+    "offload_optimizer": null, 
+    "sub_group_size": 1.000000e+09, 
+    "prefetch_bucket_size": 5.000000e+07, 
+    "param_persistence_threshold": 1.000000e+05, 
+    "max_live_parameters": 1.000000e+09, 
+    "max_reuse_distance": 1.000000e+09, 
+    "gather_fp16_weights_on_model_save": false, 
+    "ignore_unused_parameters": true, 
+    "round_robin_gradients": false, 
+    "legacy_stage1": false
+}
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   zero_enabled ................. False
+[2021-10-05 21:49:19,806] [INFO] [config.py:944:print]   zero_optimization_stage ...... 0
+[2021-10-05 21:49:19,807] [INFO] [config.py:946:print]   json = {
+    "train_batch_size": 16, 
+    "steps_per_print": 2.000000e+03, 
+    "optimizer": {
+        "type": "Adam", 
+        "params": {
+            "lr": 0.001, 
+            "betas": [0.8, 0.999], 
+            "eps": 1e-08, 
+            "weight_decay": 3e-07
+        }
+    }, 
+    "scheduler": {
+        "type": "WarmupLR", 
+        "params": {
+            "warmup_min_lr": 0, 
+            "warmup_max_lr": 0.001, 
+            "warmup_num_steps": 1000
+        }
+    }, 
+    "gradient_clipping": 1.0, 
+    "prescale_gradients": false, 
+    "fp16": {
+        "enabled": true, 
+        "fp16_master_weights_and_grads": false, 
+        "loss_scale": 0, 
+        "loss_scale_window": 500, 
+        "hysteresis": 2, 
+        "min_loss_scale": 1, 
+        "initial_scale_power": 15
+    }, 
+    "wall_clock_breakdown": false, 
+    "zero_optimization": {
+        "stage": 0, 
+        "allgather_partitions": true, 
+        "reduce_scatter": true, 
+        "allgather_bucket_size": 5.000000e+07, 
+        "reduce_bucket_size": 5.000000e+07, 
+        "overlap_comm": true, 
+        "contiguous_gradients": true, 
+        "cpu_offload": false
+    }
+}
+Using /home/users/nus/e0792473/.cache/torch_extensions/py38_cu114 as PyTorch extensions root...
+Emitting ninja build file /home/users/nus/e0792473/.cache/torch_extensions/py38_cu114/utils/build.ninja...
+Building extension module utils...
+Allowing ninja to set a default number of workers... (overridable by setting the environment variable MAX_JOBS=N)
+ninja: no work to do.
+Loading extension module utils...
+Time to load utils op: 0.3093855381011963 seconds
+fp16=True
+[2021-10-05 21:49:38,331] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 360
+[2021-10-05 21:49:38,332] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 32768 to 16384.0
+[2021-10-05 21:49:38,332] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 32768, reducing to 16384.0
+[2021-10-05 21:49:54,239] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 729
+[2021-10-05 21:49:54,239] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 16384.0 to 8192.0
+[2021-10-05 21:49:54,239] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 16384.0, reducing to 8192.0
+[1,  1000] loss: 1.147
+Accuracy of the network on the 10000 test images: 61 %
+[2021-10-05 21:50:40,018] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:50:40,019] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 8192.0 to 16384.0
+[2021-10-05 21:50:40,995] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 1283
+[2021-10-05 21:50:40,995] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 16384.0 to 8192.0
+[2021-10-05 21:50:40,995] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 16384.0, reducing to 8192.0
+[2021-10-05 21:51:00,683] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:51:00,683] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 8192.0 to 16384.0
+[2021-10-05 21:51:01,049] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 1821
+[2021-10-05 21:51:01,049] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 16384.0 to 8192.0
+[2021-10-05 21:51:01,049] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 16384.0, reducing to 8192.0
+[2021-10-05 21:51:02,877] [INFO] [logging.py:68:log_dist] [Rank 0] step=2000, skipped=4, lr=[0.001, 0.001], mom=[[0.8, 0.999], [0.8, 0.999]]
+[2021-10-05 21:51:02,877] [INFO] [timer.py:157:stop] 0/2000, SamplesPerSec=426.01266074702073
+[1,  2000] loss: 0.898
+Accuracy of the network on the 10000 test images: 61 %
+[2021-10-05 21:51:34,691] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 2320
+[2021-10-05 21:51:34,691] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 21:51:34,691] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 21:51:53,223] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:51:53,223] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[1,  3000] loss: 0.822
+Accuracy of the network on the 10000 test images: 60 %
+[2021-10-05 21:52:39,049] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:52:39,050] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 8192.0 to 16384.0
+[2021-10-05 21:52:39,297] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 3325
+[2021-10-05 21:52:39,297] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 16384.0 to 8192.0
+[2021-10-05 21:52:39,297] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 16384.0, reducing to 8192.0
+[2021-10-05 21:52:56,665] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 3729
+[2021-10-05 21:52:56,666] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 21:52:56,666] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 21:53:05,876] [INFO] [logging.py:68:log_dist] [Rank 0] step=4000, skipped=7, lr=[0.001, 0.001], mom=[[0.8, 0.999], [0.8, 0.999]]
+[2021-10-05 21:53:05,877] [INFO] [timer.py:157:stop] 0/4000, SamplesPerSec=413.98779370261644
+[2,  1000] loss: 0.836
+Accuracy of the network on the 10000 test images: 61 %
+[2021-10-05 21:53:34,650] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:53:34,650] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 21:53:36,580] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 4408
+[2021-10-05 21:53:36,580] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 21:53:36,580] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 21:53:53,903] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:53:53,904] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2,  2000] loss: 0.810
+Accuracy of the network on the 10000 test images: 62 %
+[2021-10-05 21:54:37,739] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:54:37,739] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 8192.0 to 16384.0
+[2021-10-05 21:54:37,838] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 5411
+[2021-10-05 21:54:37,838] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 16384.0 to 8192.0
+[2021-10-05 21:54:37,838] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 16384.0, reducing to 8192.0
+[2021-10-05 21:54:39,835] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 5445
+[2021-10-05 21:54:39,835] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 21:54:39,836] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 21:55:02,752] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:55:02,752] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 21:55:03,306] [INFO] [logging.py:68:log_dist] [Rank 0] step=6000, skipped=10, lr=[0.001, 0.001], mom=[[0.8, 0.999], [0.8, 0.999]]
+[2021-10-05 21:55:03,307] [INFO] [timer.py:157:stop] 0/6000, SamplesPerSec=430.71854946940067
+[2,  3000] loss: 0.770
+Accuracy of the network on the 10000 test images: 60 %
+[2021-10-05 21:55:42,755] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 6293
+[2021-10-05 21:55:42,756] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 21:55:42,756] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 21:56:03,281] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:56:03,282] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 21:56:04,324] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 6854
+[2021-10-05 21:56:04,325] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 21:56:04,325] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[3,  1000] loss: 0.792
+Accuracy of the network on the 10000 test images: 61 %
+[2021-10-05 21:56:41,034] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:56:41,034] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 21:56:41,601] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 7407
+[2021-10-05 21:56:41,601] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 21:56:41,601] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 21:56:58,240] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:56:58,240] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 21:57:03,649] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 7998
+[2021-10-05 21:57:03,649] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 21:57:03,649] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 21:57:03,718] [INFO] [logging.py:68:log_dist] [Rank 0] step=8000, skipped=14, lr=[0.001, 0.001], mom=[[0.8, 0.999], [0.8, 0.999]]
+[2021-10-05 21:57:03,720] [INFO] [timer.py:157:stop] 0/8000, SamplesPerSec=429.11555326110135
+[3,  2000] loss: 0.779
+Accuracy of the network on the 10000 test images: 62 %
+[2021-10-05 21:57:45,870] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:57:45,870] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 21:57:47,711] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 8531
+[2021-10-05 21:57:47,711] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 21:57:47,712] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 21:57:49,941] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 8570
+[2021-10-05 21:57:49,941] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 4096.0 to 2048.0
+[2021-10-05 21:57:49,941] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 4096.0, reducing to 2048.0
+[2021-10-05 21:58:13,353] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:58:13,354] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 2048.0 to 4096.0
+[3,  3000] loss: 0.745
+Accuracy of the network on the 10000 test images: 60 %
+[2021-10-05 21:58:57,423] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:58:57,423] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 21:58:57,849] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 9594
+[2021-10-05 21:58:57,849] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 21:58:57,849] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 21:59:08,354] [INFO] [logging.py:68:log_dist] [Rank 0] step=10000, skipped=17, lr=[0.001, 0.001], mom=[[0.8, 0.999], [0.8, 0.999]]
+[2021-10-05 21:59:08,354] [INFO] [timer.py:157:stop] 0/10000, SamplesPerSec=427.402757518677
+[2021-10-05 21:59:09,387] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:59:09,387] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 21:59:09,649] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 10119
+[2021-10-05 21:59:09,649] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 21:59:09,649] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[4,  1000] loss: 0.763
+Accuracy of the network on the 10000 test images: 60 %
+[2021-10-05 21:59:51,203] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 21:59:51,203] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 21:59:51,629] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 10658
+[2021-10-05 21:59:51,629] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 21:59:51,629] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 22:00:13,371] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:00:13,371] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 22:00:25,106] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 11360
+[2021-10-05 22:00:25,106] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 22:00:25,106] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[4,  2000] loss: 0.747
+Accuracy of the network on the 10000 test images: 61 %
+[2021-10-05 22:01:04,923] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 11695
+[2021-10-05 22:01:04,923] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 4096.0 to 2048.0
+[2021-10-05 22:01:04,923] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 4096.0, reducing to 2048.0
+[2021-10-05 22:01:17,551] [INFO] [logging.py:68:log_dist] [Rank 0] step=12000, skipped=21, lr=[0.001, 0.001], mom=[[0.8, 0.999], [0.8, 0.999]]
+[2021-10-05 22:01:17,552] [INFO] [timer.py:157:stop] 0/12000, SamplesPerSec=422.70724364883927
+[2021-10-05 22:01:25,992] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:01:25,992] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 2048.0 to 4096.0
+[4,  3000] loss: 0.722
+Accuracy of the network on the 10000 test images: 60 %
+[2021-10-05 22:02:10,110] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:02:10,110] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 22:02:10,870] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 12767
+[2021-10-05 22:02:10,871] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 22:02:10,871] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 22:02:14,604] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 13104
+[2021-10-05 22:02:14,605] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 4096.0 to 2048.0
+[2021-10-05 22:02:14,605] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 4096.0, reducing to 2048.0
+[5,  1000] loss: 0.741
+Accuracy of the network on the 10000 test images: 60 %
+[2021-10-05 22:02:55,351] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:02:55,351] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 2048.0 to 4096.0
+[2021-10-05 22:03:10,799] [INFO] [logging.py:68:log_dist] [Rank 0] step=14000, skipped=23, lr=[0.001, 0.001], mom=[[0.8, 0.999], [0.8, 0.999]]
+[2021-10-05 22:03:10,799] [INFO] [timer.py:157:stop] 0/14000, SamplesPerSec=431.47401535651306
+[2021-10-05 22:03:14,723] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:03:14,723] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 22:03:16,249] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 14150
+[2021-10-05 22:03:16,249] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 22:03:16,249] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[5,  2000] loss: 0.732
+Accuracy of the network on the 10000 test images: 60 %
+[2021-10-05 22:03:56,038] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:03:56,038] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 22:04:01,824] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 14748
+[2021-10-05 22:04:01,824] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 22:04:01,825] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 22:04:06,283] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 14875
+[2021-10-05 22:04:06,283] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 4096.0 to 2048.0
+[2021-10-05 22:04:06,283] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 4096.0, reducing to 2048.0
+[2021-10-05 22:04:22,801] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:04:22,801] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 2048.0 to 4096.0
+[5,  3000] loss: 0.709
+Accuracy of the network on the 10000 test images: 60 %
+[2021-10-05 22:04:56,434] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 15816
+[2021-10-05 22:04:56,435] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 4096.0 to 2048.0
+[2021-10-05 22:04:56,435] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 4096.0, reducing to 2048.0
+[2021-10-05 22:05:02,613] [INFO] [logging.py:68:log_dist] [Rank 0] step=16000, skipped=27, lr=[0.001, 0.001], mom=[[0.8, 0.999], [0.8, 0.999]]
+[2021-10-05 22:05:02,614] [INFO] [timer.py:157:stop] 0/16000, SamplesPerSec=437.68990590183364
+[2021-10-05 22:05:15,289] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:05:15,290] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 2048.0 to 4096.0
+[6,  1000] loss: 0.724
+Accuracy of the network on the 10000 test images: 60 %
+[2021-10-05 22:05:51,310] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 16672
+[2021-10-05 22:05:51,310] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 4096.0 to 2048.0
+[2021-10-05 22:05:51,310] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 4096.0, reducing to 2048.0
+[2021-10-05 22:06:12,275] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:06:12,276] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 2048.0 to 4096.0
+[6,  2000] loss: 0.709
+Accuracy of the network on the 10000 test images: 60 %
+[2021-10-05 22:06:59,607] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:06:59,608] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 22:07:01,350] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 17701
+[2021-10-05 22:07:01,351] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 22:07:01,351] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 22:07:11,909] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 17945
+[2021-10-05 22:07:11,909] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 4096.0 to 2048.0
+[2021-10-05 22:07:11,909] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 4096.0, reducing to 2048.0
+[2021-10-05 22:07:14,868] [INFO] [logging.py:68:log_dist] [Rank 0] step=18000, skipped=30, lr=[0.001, 0.001], mom=[[0.8, 0.999], [0.8, 0.999]]
+[2021-10-05 22:07:14,869] [INFO] [timer.py:157:stop] 0/18000, SamplesPerSec=432.37716320406037
+[2021-10-05 22:07:30,942] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:07:30,943] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 2048.0 to 4096.0
+[6,  3000] loss: 0.682
+Accuracy of the network on the 10000 test images: 59 %
+[2021-10-05 22:08:11,433] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:08:11,433] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 22:08:16,614] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 19054
+[2021-10-05 22:08:16,614] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 22:08:16,614] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[2021-10-05 22:08:34,504] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:08:34,505] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 4096.0 to 8192.0
+[2021-10-05 22:08:34,726] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 19575
+[2021-10-05 22:08:34,726] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 8192.0 to 4096.0
+[2021-10-05 22:08:34,726] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 8192.0, reducing to 4096.0
+[7,  1000] loss: 0.718
+Accuracy of the network on the 10000 test images: 59 %
+[2021-10-05 22:09:18,575] [INFO] [logging.py:68:log_dist] [Rank 0] step=20000, skipped=32, lr=[0.001, 0.001], mom=[[0.8, 0.999], [0.8, 0.999]]
+[2021-10-05 22:09:18,576] [INFO] [timer.py:157:stop] 0/20000, SamplesPerSec=429.62873437135966
+[2021-10-05 22:09:19,722] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 20033
+[2021-10-05 22:09:19,722] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 4096.0 to 2048.0
+[2021-10-05 22:09:19,722] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 4096.0, reducing to 2048.0
+[2021-10-05 22:09:37,624] [INFO] [fused_optimizer.py:347:_update_scale] No Grad overflow for 500 iterations
+[2021-10-05 22:09:37,624] [INFO] [fused_optimizer.py:349:_update_scale] Increasing dynamic loss scale from 2048.0 to 4096.0
+[2021-10-05 22:09:41,481] [INFO] [fused_optimizer.py:337:_update_scale] 
+Grad overflow on iteration 20601
+[2021-10-05 22:09:41,481] [INFO] [fused_optimizer.py:338:_update_scale] Reducing dynamic loss scale from 4096.0 to 2048.0
+[2021-10-05 22:09:41,481] [INFO] [logging.py:68:log_dist] [Rank 0] Overflow detected. Skipping step. Attempted loss scale: 4096.0, reducing to 2048.0
+[7,  2000] loss: 0.689
