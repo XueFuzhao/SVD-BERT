@@ -1,0 +1,19 @@
+Started scripts
+Fine Tuning /home/users/nus/e0792473/scratch/output_svd_bert/bert_model_outputs/saved_models/only_svd_moe_pretraining_lrsearch/epoch32_step102482/mp_rank_00_model_states.pt
+python -m torch.distributed.launch --nproc_per_node=1 --master_port=1112 run_glue_classifier_bert_base.py --task_name MNLI --do_train --do_eval --deepspeed --deepspeed_config glue_bert_base.json --do_lower_case --fp16 --data_dir /home/users/nus/e0792473/scratch/GLUE-baselines/glue_data/MNLI/ --bert_model bert-base-uncased --max_seq_length 128 --train_batch_size 32 --gradient_accumulation_steps 1 --learning_rate 2e-5 --num_train_epochs 10 --warmup_proportion 0.03 --output_dir /home/users/nus/e0792473/scratch/outputs/bert_base/MNLI_bsz32_lr2e-5_epoch10_MNLI --model_file /home/users/nus/e0792473/scratch/output_svd_bert/bert_model_outputs/saved_models/only_svd_moe_pretraining_lrsearch/epoch32_step102482/mp_rank_00_model_states.pt --use_moe --use_svd --ep-world-size 1 --num-experts 8 --expert_dropout 0.4 --num_moe_layers 2 --post_moe_layers 1 --top-k 1 --noisy-gate-policy 'Jitter' --moe-param-group --capacity_factor 2.0 &> /home/users/nus/e0792473/scratch/output_svd_bert/log/bert_base_SVD/MNLI_MNLI_bzs32_lr2e-5_epoch10.txt
+======================================================================================
+
+			Resource Usage on 2021-11-16 07:43:37.284144:
+
+	JobId: 6915430.wlm01  
+	Project: 11002070 
+	Exit Status: 0
+	NCPUs Requested: 5				NCPUs Used: 5
+							CPU Time Used: 06:19:54
+	Memory Requested: None 				Memory Used: 6359496kb
+							Vmem Used: 30988720kb
+	Walltime requested: 12:00:00 			Walltime Used: 06:19:33
+	
+	Execution Nodes Used: (dgx4105:ncpus=5:ngpus=1)
+	
+ ======================================================================================

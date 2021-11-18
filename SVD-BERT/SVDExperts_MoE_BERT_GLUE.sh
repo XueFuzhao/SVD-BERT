@@ -15,7 +15,7 @@ TASK=MNLI
 EFFECTIVE_BATCH_SIZE=32
 LR=2e-5
 NUM_EPOCH=3
-MASTER_PORT=1231
+MASTER_PORT=1242
 
 
 # Size of expert parallel world (should be less than total world size)
@@ -29,15 +29,14 @@ model_name="bert_base"
 JOBNAME=$TASK
 
 #CHECKPOINT_PATH="/home/users/nus/e0792473/scratch/BERT_base_model"
-CHECKPOINT_PATH="/home/users/nus/e0792473/scratch/output_svd_bert/bert_model_outputs/saved_models/only_svd_moe_pretraining_lr2e_3_bs32k/epoch160_step2016/mp_rank_00_model_states.pt"
+CHECKPOINT_PATH="/home/users/nus/e0792473/scratch/output_svd_bert/bert_model_outputs/saved_models/only_svd_moe_pretraining_lr1e_3_bsz256_epoch128/epoch128_step206750/mp_rank_00_model_states.pt"
 #CHECKPOINT_PATH="/home/users/nus/e0792473/scratch/output_svd_bert/bert_model_outputs/saved_models/svd_moe_pretraining/epoch32_step400/expert_1_mp_rank_00_model_states.pt"
 
-OUTPUT_DIR="/home/users/nus/e0792473/scratch/outputs/${model_name}/${JOBNAME}_bsz${EFFECTIVE_BATCH_SIZE}_lr${LR}_epoch${NUM_EPOCH}"
+OUTPUT_DIR="/home/users/nus/e0792473/scratch/outputs/${model_name}/${JOBNAME}_bsz${EFFECTIVE_BATCH_SIZE}_lr${LR}_epoch${NUM_EPOCH}_focal"
 
 GLUE_DIR="/home/users/nus/e0792473/scratch/GLUE-baselines/glue_data"
 
 MAX_GPU_BATCH_SIZE=32
-#MAX_GPU_BATCH_SIZE=2
 PER_GPU_BATCH_SIZE=$((EFFECTIVE_BATCH_SIZE/NGPU))
 if [[ $PER_GPU_BATCH_SIZE -lt $MAX_GPU_BATCH_SIZE ]]; then
        GRAD_ACCUM_STEPS=1
@@ -64,22 +63,25 @@ run_cmd="python -m torch.distributed.launch \
        --gradient_accumulation_steps ${GRAD_ACCUM_STEPS} \
        --learning_rate ${LR} \
        --num_train_epochs ${NUM_EPOCH} \
+       --warmup_proportion 0.1 \
        --output_dir ${OUTPUT_DIR}_${TASK} \
        --model_file $CHECKPOINT_PATH \
        --use_moe \
        --use_svd \
+       --not_update_moe \
        --ep-world-size ${EP_SIZE} \
        --num-experts ${EXPERTS} \
+       --expert_dropout 0.1 \
        --num_moe_layers ${NUM_EXP_LAYERS} \
+       --post_moe_layers 1 \
        --top-k 1 \
-       --noisy-gate-policy 'RSample' \
        --moe-param-group \
        --capacity_factor ${C}\
-       &> $LOG_DIR/${model_name}_SVD/${JOBNAME}_${TASK}_bzs${EFFECTIVE_BATCH_SIZE}_lr${LR}_epoch${NUM_EPOCH}.txt
+       &> $LOG_DIR/${model_name}_SVD/${JOBNAME}_${TASK}_bzs${EFFECTIVE_BATCH_SIZE}_lr${LR}_epoch${NUM_EPOCH}_focal10_noMoE.txt
        "
 echo ${run_cmd}
 eval ${run_cmd} 
 
-
+#--noisy-gate-policy 'Jitter' \
 #       --deepspeed_transformer_kernel \
 #       --progressive_layer_drop \

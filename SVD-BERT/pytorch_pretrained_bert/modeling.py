@@ -332,7 +332,10 @@ class BertOutput(nn.Module):
         super(BertOutput, self).__init__()
         self.dense = nn.Linear(config.intermediate_size, config.hidden_size)
         self.dense.bert_output_layer = True
-        self.dropout = nn.Dropout(config.hidden_dropout_prob)
+        if config.expert_dropout:
+            self.dropout = nn.Dropout(config.expert_dropout)
+        else:
+            self.dropout = nn.Dropout(config.hidden_dropout_prob)
         #self.LayerNorm = BertLayerNorm(config.hidden_size, eps=1e-12)
 
     def forward(self, hidden_states, input_tensor):
@@ -364,6 +367,10 @@ class BertLayer(nn.Module):
         #self.PostAttentionLayerNorm = BertLayerNorm(config.hidden_size,
         #                                            eps=1e-12)
         self.use_moe_here=use_moe_here
+        if use_moe_here:
+            config.expert_dropout = args.expert_dropout
+        else:
+            config.expert_dropout = None
         self.FFN=BertFFN(config)
         if use_moe_here:
             self.FFN = deepspeed.moe.layer.MoE(
@@ -372,6 +379,7 @@ class BertLayer(nn.Module):
                 num_experts=args.num_experts,
                 k=args.top_k,
                 capacity_factor=args.capacity_factor,
+                eval_capacity_factor=args.capacity_factor,
                 min_capacity=args.min_capacity,
                 noisy_gate_policy=args.noisy_gate_policy)
         self.LayerNorm = BertLayerNorm(config.hidden_size, eps=1e-12)
@@ -443,6 +451,7 @@ class BertEncoder(nn.Module):
         self.use_moe = args.use_moe
         self.config = config
         self.num_moe_layers = args.num_moe_layers
+        self.post_moe_layers = args.post_moe_layers
         if args.deepspeed_transformer_kernel:
             from deepspeed import DeepSpeedTransformerLayer, DeepSpeedTransformerConfig
 
@@ -483,7 +492,7 @@ class BertEncoder(nn.Module):
                         config, sparsity_config=sparse_attention_config)
                     
                 self.layer = nn.ModuleList([
-                    copy.deepcopy(layer) for _ in range(config.num_hidden_layers-args.num_moe_layers)
+                    copy.deepcopy(layer) for _ in range(config.num_hidden_layers-args.num_moe_layers-args.post_moe_layers)
                 ])
                 
                 #layer = BertLayer(config,args=args, use_moe_here = True)
@@ -495,7 +504,8 @@ class BertEncoder(nn.Module):
                         config, sparsity_config=sparse_attention_config)
                 for i in range(args.num_moe_layers):
                     self.layer.append(BertLayer(config,args=args, use_moe_here = True)) 
-                
+                for i in range(args.post_moe_layers):
+                    self.layer.append(BertLayer(config,args=args, use_moe_here = False))
             else:
                 layer = BertLayer(config,args=args)
                 if sparse_attention_config is not None:
@@ -548,7 +558,7 @@ class BertEncoder(nn.Module):
             if self.use_moe:
                 tmp_load_balance_loss = 0
                 for i, layer_module in enumerate(self.layer):
-                    if i < self.config.num_hidden_layers-self.num_moe_layers:
+                    if i < self.config.num_hidden_layers-self.num_moe_layers-self.post_moe_layers or i>=self.config.num_hidden_layers-self.post_moe_layers:
                         hidden_states = layer_module(hidden_states, attention_mask)
                     else:
                         hidden_states,tmp_load_balance_loss = layer_module(hidden_states, attention_mask)
@@ -879,7 +889,7 @@ class PreTrainedBertModel(nn.Module):
             #####Init MoE layers
             #old_keys = []
             #new_keys = []  
-            for i in range(config.num_hidden_layers-args.num_moe_layers,  config.num_hidden_layers):
+            for i in range(config.num_hidden_layers-args.num_moe_layers-args.post_moe_layers,  config.num_hidden_layers -args.post_moe_layers):
                 for FFN_type in ["intermediate","output"]:
                     for para in ["weight","bias"]:
                         old_key= 'bert.encoder.layer.'+str(i)+'.FFN.'+FFN_type+'.dense.'+para
@@ -896,7 +906,8 @@ class PreTrainedBertModel(nn.Module):
                                         recover_v = torch.mm(torch.mm(u_, torch.diag(s_)), v_.t())
                                         return recover_v
                                         #model_dict[k_m]=recover_v
-                                    state_dict[new_key]=SVD_weight(value)
+                                    #state_dict[new_key]=SVD_weight(value)
+                                    state_dict[new_key]=(SVD_weight(value)+value)*0.5
                                     #TODO
                                 else:
                                     state_dict[new_key]=value
@@ -1453,7 +1464,7 @@ class BertForSequenceClassification(PreTrainedBertModel):
         if labels is not None:
             loss_fct = CrossEntropyLoss()
             if self.use_moe:
-                loss = loss_fct(logits.view(-1, self.num_labels), labels.view(-1)) + 0.01 * load_balance_loss
+                loss = loss_fct(logits.view(-1, self.num_labels), labels.view(-1))# + 0.01 * load_balance_loss
             else:
                 loss = loss_fct(logits.view(-1, self.num_labels), labels.view(-1))
             return loss
